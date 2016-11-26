@@ -1,5 +1,7 @@
 package nullpointerexception.signtheway;
 
+import android.os.AsyncTask;
+
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetSocketAddress;
@@ -26,7 +28,7 @@ public class LocationSender implements Runnable {
     }
     @Override
     public void run() {
-        String sLat = Double.toString(this.Lat), sLon = Double.toString(this.Lon);
+        String sLat = Double.toString(this.Lat), sLon = Double.toString(this.Lon), strRes;
         byte[] res, length = new byte[4];
         Socket socket = new Socket();
         try {
@@ -56,7 +58,7 @@ public class LocationSender implements Runnable {
             int num = wrapped.getInt();
             res = new byte[num];
             dIn.read(res);
-            String strRes = new String(res, "ASCII");
+            strRes = new String(res, "ASCII");
             this.signalList = Signal.getSignalsFromString(strRes);
 
 
