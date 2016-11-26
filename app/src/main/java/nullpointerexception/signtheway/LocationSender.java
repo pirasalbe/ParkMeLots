@@ -57,6 +57,9 @@ public class LocationSender implements Runnable {
             res = new byte[num];
             dIn.read(res);
             String strRes = new String(res, "ASCII");
+            this.signalList = Signal.getSignalsFromString(strRes);
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
