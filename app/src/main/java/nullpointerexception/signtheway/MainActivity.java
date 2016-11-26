@@ -1,5 +1,7 @@
 package nullpointerexception.signtheway;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -419,9 +421,10 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
     {
 
         if(mCurrentLocation != null){
-            LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-            Thread thread = new Thread(locationSender);
-            thread.start();
+            Activity activity = MainActivity.this;
+            Context context = this;
+            LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), context, activity);
+            locationSender.execute();
 
         }
     }

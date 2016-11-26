@@ -10,7 +10,7 @@ import java.util.Map;
 public class Signal {
     private int key, codSignal;
     private double lat, lon;
-    private static Map<Integer, String> urlMap;
+    private static Map<String, List<Integer>> signalTypeMap;
 
     public Signal(int key, int codSignal, double lat, double lon){
         this.key = key;
@@ -31,35 +31,77 @@ public class Signal {
         return signalList;
     }
 
-    private void initUrlMap()
+    private void initSignalTypeMap()
     {
-        this.urlMap.put(1, "http://www.santaluciacava.it/images/segn_str_dosso.JPG");
-        this.urlMap.put(2, "http://www.santaluciacava.it/images/segn_str_dosso%201.JPG");
-        this.urlMap.put(3, "http://www.santaluciacava.it/images/segn_str_cunetta.JPG");
-        this.urlMap.put(5, "http://www.santaluciacava.it/images/segn_str_CURVA%20PERICOLOSA%20SINISTRA.JPG");
-        this.urlMap.put(7, "http://www.santaluciacava.it/images/segn_str_curva%20pericolosa.JPG");
-        this.urlMap.put(8, "http://www.santaluciacava.it/images/segn_str_passaggio%20a%20livello.JPG");
-        this.urlMap.put(9, "http://www.santaluciacava.it/images/segn_str_passaggio%20livello%20incustodito.JPG");
-        this.urlMap.put(10, "http://www.santaluciacava.it/images/segn_str_CROCE%20DI%20S.ANDREA.JPG");
-        this.urlMap.put(11, "http://www.santaluciacava.it/images/segn_str_DOPPIA%20CROCE%20S.ANDREA.JPG");
-        this.urlMap.put(15, "http://www.santaluciacava.it/images/segn_str_ATTRAVERSAMENTO%20PEDONALE.JPG");
+        List<Integer> codesListPericolo = new ArrayList<Integer>();
+        List<Integer> codesListPrecedenza = new ArrayList<Integer>();
+        codesListPericolo.add(1);
+        codesListPericolo.add(2);
+        codesListPericolo.add(3);
+        codesListPericolo.add(5);
+        codesListPericolo.add(7);
+        codesListPericolo.add(8);
+        codesListPericolo.add(9);
+        codesListPericolo.add(10);
+        codesListPericolo.add(11);
+        codesListPericolo.add(15);
+        codesListPericolo.add(17);
+        codesListPericolo.add(18);
+        codesListPericolo.add(19);
+        codesListPericolo.add(21);
+        codesListPericolo.add(23);
+        codesListPericolo.add(24);
+        codesListPericolo.add(25);
+        codesListPericolo.add(28);
+        codesListPericolo.add(29);
+        codesListPericolo.add(31);
+        codesListPericolo.add(33);
+        codesListPericolo.add(34);
+        codesListPericolo.add(47);
+        codesListPrecedenza.add(40);
+        codesListPrecedenza.add(41);
+        codesListPrecedenza.add(50);
+        signalTypeMap.put("PERICOLO", codesListPericolo);
+        signalTypeMap.put("PRECEDENZA", codesListPrecedenza);
 
-        this.urlMap.put(17, "http://www.santaluciacava.it/images/segn_str_discesa%20pericolosa.JPG");
-        this.urlMap.put(18, "http://www.santaluciacava.it/images/segn_str_salita%20ripida.JPG");
-        this.urlMap.put(19, "http://www.santaluciacava.it/images/segn_str_RESTRINGIMENTO%20STRADA.JPG");
-        this.urlMap.put(21, "http://www.santaluciacava.it/images/segn_str_RISTRINGIMENTO%20STRADA%20DESTRA.JPG");
-        this.urlMap.put(23, "http://www.santaluciacava.it/images/segn_str_banchina%20pericolosa.JPG");
-        this.urlMap.put(24, "http://www.santaluciacava.it/images/segn_str_STRADA%20SDRUCCIOLEVOLE.JPG");
-        this.urlMap.put(25, "http://www.santaluciacava.it/images/segn_str_bambini.JPG");
-        this.urlMap.put(28, "http://www.santaluciacava.it/images/segn_str_DOPPIO%20SENSO%20DI%20CIRCOLAZIONE%20SU%20STRADA%20A%20SENSO%20UNICO.JPG");
-        this.urlMap.put(29, "http://www.santaluciacava.it/images/segn_str_rotatoria.JPG");
-        this.urlMap.put(31, "http://www.santaluciacava.it/images/segn_str_materiale%20instabile%20sulla%20strada.JPG");
-        this.urlMap.put(33, "http://www.santaluciacava.it/images/segn_str_CADUTA%20MASSI%20VERSO%20DESTRA.JPG");
-        this.urlMap.put(34, "http://www.santaluciacava.it/images/segn_str_semaforo%20triangolo.JPG");
-        this.urlMap.put(47, "http://www.santaluciacava.it/images/segn_str_intersezione%20con%20diritto%20di%20precedenza.JPG");
+
     }
 
-    public static String getUrl(int key){
-        return urlMap.get(key);
+
+
+    public static List<Integer> getCodes(String key){
+        return signalTypeMap.get(key);
     }
+
+    public static List<Integer> getCodes(List<Signal> signalList){
+        List<Integer> codeList = new ArrayList<Integer>();
+        for (Signal signal: signalList){
+            codeList.add(signal.codSignal);
+        }
+        return codeList;
+    }
+
+    public static Map<String, List<Integer>> getSignalMap(List<Integer> signals){
+        Map<String, List<Integer>> finalList = null;
+        List<Integer> codesListPericolo = new ArrayList<Integer>();
+        List<Integer> codesListPrecedenza = new ArrayList<Integer>();
+        for (Integer codSignal : getCodes("PERICOLO")) {
+            for(Integer cod : signals){
+                if(cod.equals(codSignal)){
+                    codesListPericolo.add(cod);
+                }
+            }
+        }
+        for (Integer codSignal : getCodes("PRECEDENZA")) {
+            for(Integer cod : signals){
+                if(cod.equals(codSignal)){
+                    codesListPrecedenza.add(cod);
+                }
+            }
+        }
+        finalList.put("PERICOLO", codesListPericolo);
+        finalList.put("PRECEDENZA", codesListPrecedenza);
+        return finalList;
+    }
+
 }
