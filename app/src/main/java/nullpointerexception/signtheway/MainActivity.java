@@ -414,4 +414,15 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
         savedInstanceState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
         super.onSaveInstanceState(savedInstanceState);
     }
+
+    public void sendCoordinates()
+    {
+
+        if(mCurrentLocation != null){
+            LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+            Thread thread = new Thread(locationSender);
+            thread.start();
+
+        }
+    }
 }

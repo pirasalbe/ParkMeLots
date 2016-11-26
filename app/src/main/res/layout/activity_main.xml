@@ -36,6 +36,18 @@
             android:gravity="center"
             android:onClick="stopUpdatesButtonHandler"
             android:text="@string/stop_updates" />
+
+        <Button
+            android:id="@+id/send_coordinates"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:enabled="false"
+            android:gravity="center"
+            android:onClick="sendCoordinates"
+            android:text="@string/send_coordinates" />
     </LinearLayout>
 
     <TextView
