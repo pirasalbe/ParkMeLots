@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
     protected Location mCurrentLocation;
 
     // UI Widgets.
-    protected Button mStartUpdatesButton;
-    protected Button mStopUpdatesButton;
+    //protected Button mStartUpdatesButton;
+    //protected Button mStopUpdatesButton;
     protected Button mSendCoordinates;
     protected TextView mLastUpdateTimeTextView;
     protected TextView mLatitudeTextView;
@@ -100,8 +100,8 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
         activity = MainActivity.this;
         context = this;
         // Locate the UI widgets.
-        mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
-        mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
+        //mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
+      //  mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
         mSendCoordinates = (Button) findViewById(R.id.send_coordinate);
 
         //mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
@@ -275,13 +275,13 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      * user is requesting location updates.
      */
     private void setButtonsEnabledState() {
-        if (mRequestingLocationUpdates) {
+        /*if (mRequestingLocationUpdates) {
             mStartUpdatesButton.setEnabled(false);
             mStopUpdatesButton.setEnabled(true);
         } else {
             mStartUpdatesButton.setEnabled(true);
             mStopUpdatesButton.setEnabled(false);
-        }
+        }*/
     }
 
     /**

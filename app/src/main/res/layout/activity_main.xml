@@ -14,7 +14,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <Button
+        <!--<Button
             android:id="@+id/start_updates_button"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:onClick="stopUpdatesButtonHandler"
             android:text="@string/stop_updates" />
-
+-->
 
         <Button
             android:id="@+id/send_coordinate"
