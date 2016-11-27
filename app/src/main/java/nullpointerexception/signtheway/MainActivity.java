@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
     public static final int PERMISSION_FINE = 0;
-    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 2000;
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10;
 
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
     /**
      * Time when the location was updated represented as a String.
      */
+
     protected String mLastUpdateTime;
     Activity activity;
     Context context;
@@ -103,14 +104,14 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
         mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
         mSendCoordinates = (Button) findViewById(R.id.send_coordinate);
 
-        mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
-        mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
-        mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
+        //mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
+        //mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
+        //mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
 
         // Set labels.
-        mLatitudeLabel = getResources().getString(R.string.latitude_label);
-        mLongitudeLabel = getResources().getString(R.string.longitude_label);
-        mLastUpdateTimeLabel = getResources().getString(R.string.last_update_time_label);
+        //mLatitudeLabel = getResources().getString(R.string.latitude_label);
+        //mLongitudeLabel = getResources().getString(R.string.longitude_label);
+        //mLastUpdateTimeLabel = getResources().getString(R.string.last_update_time_label);
 
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
@@ -287,12 +288,12 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      * Updates the latitude, the longitude, and the last location time in the UI.
      */
     private void updateUI() {
-        mLatitudeTextView.setText(String.format("%s: %f", mLatitudeLabel,
+        /*mLatitudeTextView.setText(String.format("%s: %f", mLatitudeLabel,
                 mCurrentLocation.getLatitude()));
         mLongitudeTextView.setText(String.format("%s: %f", mLongitudeLabel,
                 mCurrentLocation.getLongitude()));
         mLastUpdateTimeTextView.setText(String.format("%s: %s", mLastUpdateTimeLabel,
-                mLastUpdateTime));
+                mLastUpdateTime));*/
     }
 
     /**
@@ -391,6 +392,7 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      */
     @Override
     public void onLocationChanged(Location location) {
+
         mCurrentLocation = location;
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         updateUI();
@@ -427,7 +429,7 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
 
 
     public void stopUpdatesButtonHandler1(View view) {
-
+            //LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), context, activity);
             LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), context, activity);
             locationSender.execute();
     }

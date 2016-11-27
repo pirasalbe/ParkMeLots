@@ -53,6 +53,7 @@ public class Signal {
     }
 
     public static List<Signal> getSignalsFromString(String signals){
+        signals = signals.replace(',', '.');
         List<Signal> signalList = new ArrayList<Signal>();
         String[] signalsArray = signals.split(";");
         for (String singleSignal: signalsArray) {

@@ -29,6 +29,7 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
     private Context context;
     private Activity activity;
     private double Lat, Lon;
+
     public List<Signal> signalList = new ArrayList<Signal>();
 
     public LocationSender(double Lat, double Lon, Context context, Activity activity){
@@ -38,8 +39,11 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
         this.activity = activity;
     }
 
+
+
     @Override
     protected String doInBackground(Void... params) {
+
         String sLat = Double.toString(this.Lat), sLon = Double.toString(this.Lon), sLat2 = Double.toString(this.Lat+1), sLon2 = Double.toString(this.Lon+1), strRes, type = "USR", typeRequest = "NRB_SGN";
         byte[] res, length = new byte[4];
         Socket socket = new Socket();
@@ -96,6 +100,9 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
             dOut.writeBytes(sLon2);
             dOut.flush();
 
+
+
+
             dIn.read(length);
 
             ByteBuffer wrapped = ByteBuffer.wrap(length);
@@ -109,14 +116,14 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
             List<Integer> listaSegnali = Signal.getCodes(this.signalList);
             Map<String, List<Integer>> finalSignalMap = Signal.getSignalMap(listaSegnali);
             if(finalSignalMap.get("PERICOLO").size() > 0){
-                return "PERICOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!!!!!";
+                return "PERICOLO: STOP IN 5 M";
             }else if(finalSignalMap.get("PRECEDENZA").size() > 0){
-                return "PRECEDENZAAAAAAAAAAAAAAAAAA!!!!!!!!!";
+                return "PRECEDENZA";
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "error";
+        return "CARTELLO NON IDENTIFICATO";
     }
 
     @Override
