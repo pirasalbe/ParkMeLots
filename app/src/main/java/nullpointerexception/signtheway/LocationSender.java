@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
 import android.app.Activity;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -87,6 +88,7 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         //do somethin
-
+        TextView showCartello = (TextView) activity.findViewById(R.id.show_cartello);
+        showCartello.setText(result);
     }
 }

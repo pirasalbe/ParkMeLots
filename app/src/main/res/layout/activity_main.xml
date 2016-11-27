@@ -37,16 +37,16 @@
             android:onClick="stopUpdatesButtonHandler"
             android:text="@string/stop_updates" />
 
+
         <Button
-            android:id="@+id/send_coordinates"
+            android:id="@+id/send_coordinate"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/small_margin"
             android:layout_marginStart="@dimen/small_margin"
-            android:enabled="false"
             android:gravity="center"
-            android:onClick="sendCoordinates"
+            android:onClick="stopUpdatesButtonHandler1"
             android:text="@string/send_coordinates" />
     </LinearLayout>
 
@@ -68,6 +68,13 @@
 
     <TextView
         android:id="@+id/last_update_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:textSize="@dimen/default_text_size" />
+    <TextView
+        android:id="@+id/show_cartello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/small_margin"

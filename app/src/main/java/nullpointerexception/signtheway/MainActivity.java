@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
     // UI Widgets.
     protected Button mStartUpdatesButton;
     protected Button mStopUpdatesButton;
+    protected Button mSendCoordinates;
     protected TextView mLastUpdateTimeTextView;
     protected TextView mLatitudeTextView;
     protected TextView mLongitudeTextView;
@@ -89,15 +90,19 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      * Time when the location was updated represented as a String.
      */
     protected String mLastUpdateTime;
-
+    Activity activity;
+    Context context;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        activity = MainActivity.this;
+        context = this;
         // Locate the UI widgets.
         mStartUpdatesButton = (Button) findViewById(R.id.start_updates_button);
         mStopUpdatesButton = (Button) findViewById(R.id.stop_updates_button);
+        mSendCoordinates = (Button) findViewById(R.id.send_coordinate);
+
         mLatitudeTextView = (TextView) findViewById(R.id.latitude_text);
         mLongitudeTextView = (TextView) findViewById(R.id.longitude_text);
         mLastUpdateTimeTextView = (TextView) findViewById(R.id.last_update_time_text);
@@ -197,6 +202,8 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
      * Handles the Start Updates button and requests start of location updates. Does nothing if
      * updates have already been requested.
      */
+
+
     public void startUpdatesButtonHandler(View view) {
         if (!mRequestingLocationUpdates) {
             mRequestingLocationUpdates = true;
@@ -417,15 +424,11 @@ public class MainActivity extends AppCompatActivity  implements ConnectionCallba
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    public void sendCoordinates()
-    {
 
-        if(mCurrentLocation != null){
-            Activity activity = MainActivity.this;
-            Context context = this;
+
+    public void stopUpdatesButtonHandler1(View view) {
+
             LocationSender locationSender = new LocationSender(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), context, activity);
             locationSender.execute();
-
-        }
     }
 }
