@@ -40,29 +40,62 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        String sLat = Double.toString(this.Lat), sLon = Double.toString(this.Lon), strRes;
+        String sLat = Double.toString(this.Lat), sLon = Double.toString(this.Lon), sLat2 = Double.toString(this.Lat+1), sLon2 = Double.toString(this.Lon+1), strRes, type = "USR", typeRequest = "NRB_SGN";
         byte[] res, length = new byte[4];
         Socket socket = new Socket();
         try {
-            socket.connect(new InetSocketAddress("10.100.1.89", 2000), 100);
+            socket.connect(new InetSocketAddress("10.100.1.89", 2000));
 
             DataInputStream dIn = new DataInputStream(socket.getInputStream());
             DataOutputStream dOut = new DataOutputStream(socket.getOutputStream());
             ByteBuffer buffer = ByteBuffer.allocate(4).order(ByteOrder.nativeOrder());
 
-            buffer.putInt(sLat.length());
+            buffer.putInt(type.length());
+            dOut.write(buffer.array());
+            dOut.flush();
+            dOut.writeBytes(type);
+            dOut.flush();
 
+            buffer.clear();
+
+            buffer.putInt(typeRequest.length());
+            dOut.write(buffer.array());
+            dOut.flush();
+            dOut.writeBytes(typeRequest);
+            dOut.flush();
+
+            buffer.clear();
+
+            buffer.putInt(sLat.length());
             dOut.write(buffer.array());
             dOut.flush();
             dOut.writeBytes(sLat);
             dOut.flush();
-            buffer.clear();
-            buffer.putInt(sLon.length());
 
+            buffer.clear();
+
+            buffer.putInt(sLon.length());
             dOut.write(buffer.array());
             dOut.flush();
             dOut.writeBytes(sLon);
             dOut.flush();
+
+            buffer.clear();
+
+            buffer.putInt(sLat2.length());
+            dOut.write(buffer.array());
+            dOut.flush();
+            dOut.writeBytes(sLat2);
+            dOut.flush();
+
+            buffer.clear();
+
+            buffer.putInt(sLon2.length());
+            dOut.write(buffer.array());
+            dOut.flush();
+            dOut.writeBytes(sLon2);
+            dOut.flush();
+
             dIn.read(length);
 
             ByteBuffer wrapped = ByteBuffer.wrap(length);
@@ -71,6 +104,7 @@ public class LocationSender extends AsyncTask<Void, Void, String> {
             res = new byte[num];
             dIn.read(res);
             strRes = new String(res, "ASCII");
+
             this.signalList = Signal.getSignalsFromString(strRes);
             List<Integer> listaSegnali = Signal.getCodes(this.signalList);
             Map<String, List<Integer>> finalSignalMap = Signal.getSignalMap(listaSegnali);

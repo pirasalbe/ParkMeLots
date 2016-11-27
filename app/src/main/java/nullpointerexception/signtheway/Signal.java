@@ -17,6 +17,7 @@ public class Signal {
         this.codSignal = codSignal;
         this.lat = lat;
         this.lon = lon;
+        this.initSignalTypeMap();
     }
 
     public static List<Signal> getSignalsFromString(String signals){
